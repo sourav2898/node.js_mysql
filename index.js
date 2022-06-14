@@ -1,7 +1,7 @@
 // "use strict";
 
 const express = require("express");
-// const config = require("./config");
+const config = require("./config");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -12,10 +12,10 @@ app.use(bodyParser.json());
 
 const mysql = require("mysql");
 const conn = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "sourav@28",
-  database: "EmployeeDb",
+  host: config.host,
+  user: config.sql.user,
+  password: config.sql.password,
+  database: config.sql.database,
   multipleStatements: true,
 });
 
@@ -25,8 +25,8 @@ conn.connect((err) => {
   console.log("connection successfull....");
 });
 
-app.listen(8080, () => {
-  console.log("server is listening to http://localhost:" + 8080);
+app.listen(config.port, () => {
+  console.log("server is listening to http://localhost:" + config.port);
 });
 
 // get all employees
